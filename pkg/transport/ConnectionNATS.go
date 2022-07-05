@@ -1,6 +1,6 @@
 package transport
 
-import "gitlab.com/stackvista/agent-transport-protocol/pkg/transport/nats"
+import "gitlab.com/stackvista/agent/agent-transport-protocol/pkg/transport/nats"
 
 type ConnectionNATS struct {
 	Client            nats.Client
@@ -15,7 +15,8 @@ func NewConnectionNATS() ConnectionNATS {
 		StopChannel:       make(chan bool),
 	}
 
-	connectionNATS.Client.BindReceiverSubject("process.agent.connection", connectionNATS.ConnectionChannel)
+	subject := "process.agent.connection"
+	connectionNATS.Client.BindReceiverSubject(subject, connectionNATS.ConnectionChannel)
 
 	connectionNATS.Start()
 
