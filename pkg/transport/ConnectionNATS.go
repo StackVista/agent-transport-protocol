@@ -1,6 +1,6 @@
 package transport
 
-import "gitlab.com/stackvista/agent/agent-transport-protocol/pkg/transport/nats"
+import "gitlab.com/stackvista/agent/agent-transport-protocol.git/pkg/transport/nats"
 
 type ConnectionNATS struct {
 	Client            nats.Client
