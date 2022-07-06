@@ -6,6 +6,24 @@ package stackstate.process_agent;
 
 import "github.com/DataDog/sketches-go/ddsketch/pb/ddsketch.proto";
 
+message CollectorConnections {
+  string hostName = 2;
+  repeated Connection connections = 3;
+
+  // Post-resolved field
+  Host host = 4;
+
+  // Message batching metadata
+  int32 groupId = 5;
+  int32 groupSize = 6;
+
+  // The Kubernetes/OpenShift clustername
+  string clusterName = 7;
+
+  // The interval which the connections are collected
+  int32 collectionInterval = 8;
+}
+
 enum ConnectionType {
   tcp = 0;
   udp = 1;
