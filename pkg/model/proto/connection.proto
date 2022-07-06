@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "gitlab.com/StackVista/agent/agent-transport-protocol/pkg/model/connection";
+option go_package = "gitlab.com/StackVista/agent/agent-transport-protocol/pkg/model";
 
 package stackstate.process_agent;
 
