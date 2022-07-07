@@ -107,20 +107,20 @@ func DecodeMessage(data []byte) (Message, error) {
 	body := data[offset:]
 	var m MessageBody
 	switch header.Type {
-	//case TypeCollectorProc:
-	//	m = &CollectorProc{}
-	//case TypeCollectorCommands:
-	//	m = &CollectorCommands{}
+	case TypeCollectorProc:
+		m = &CollectorProc{}
+	case TypeCollectorCommands:
+		m = &CollectorCommands{}
 	case TypeCollectorConnections:
 		m = &CollectorConnections{}
-	//case TypeCollectorRealTime:
-	//	m = &CollectorRealTime{}
-	//case TypeResCollector:
-	//	m = &ResCollector{}
-	//case TypeCollectorContainer:
-	//	m = &CollectorContainer{}
-	//case TypeCollectorContainerRealTime:
-	//	m = &CollectorContainerRealTime{}
+	case TypeCollectorRealTime:
+		m = &CollectorRealTime{}
+	case TypeResCollector:
+		m = &ResCollector{}
+	case TypeCollectorContainer:
+		m = &CollectorContainer{}
+	case TypeCollectorContainerRealTime:
+		m = &CollectorContainerRealTime{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -134,20 +134,20 @@ func DecodeMessage(data []byte) (Message, error) {
 func DetectMessageType(b MessageBody) (MessageType, error) {
 	var t MessageType
 	switch b.(type) {
-	//case *CollectorProc:
-	//	t = TypeCollectorProc
-	//case *CollectorCommands:
-	//	t = TypeCollectorCommands
+	case *CollectorProc:
+		t = TypeCollectorProc
+	case *CollectorCommands:
+		t = TypeCollectorCommands
 	case *CollectorConnections:
 		t = TypeCollectorConnections
-	//case *CollectorRealTime:
-	//	t = TypeCollectorRealTime
-	//case *ResCollector:
-	//	t = TypeResCollector
-	//case *CollectorContainer:
-	//	t = TypeCollectorContainer
-	//case *CollectorContainerRealTime:
-	//	t = TypeCollectorContainerRealTime
+	case *CollectorRealTime:
+		t = TypeCollectorRealTime
+	case *ResCollector:
+		t = TypeResCollector
+	case *CollectorContainer:
+		t = TypeCollectorContainer
+	case *CollectorContainerRealTime:
+		t = TypeCollectorContainerRealTime
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
