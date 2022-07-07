@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option go_package = "gitlab.com/StackVista/agent/agent-transport-protocol/pkg/model";
+option go_package = "github.com/StackVista/agent-transport-protocol/pkg/model";
 
 package datadog.process_agent;
 
-import "gitlab.com/StackVista/agent/agent-transport-protocol/pkg/model/proto/agent_payload.proto";
+import "github.com/StackVista/agent-transport-protocol/pkg/model/proto/agent_payload.proto";
 import "github.com/DataDog/sketches-go/ddsketch/pb/ddsketch.proto";
 
 //

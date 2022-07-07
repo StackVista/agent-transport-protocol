@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type checkPayload struct {
+type CheckPayload struct {
 	messages  []MessageBody
 	endpoint  string
 	timestamp time.Time
