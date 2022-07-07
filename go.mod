@@ -1,4 +1,4 @@
-module gitlab.com/stackvista/agent/agent-transport-protocol.git
+module github.com/StackVista/agent-transport-protocol
 
 go 1.18
 
