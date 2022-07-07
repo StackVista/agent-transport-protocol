@@ -1,4 +1,6 @@
 
+fmt:
+	go fmt ./...
 
 deps:
 	go get github.com/DataDog/sketches-go@v1.1.0
