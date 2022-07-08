@@ -2,6 +2,7 @@ package nats
 
 import (
 	"github.com/nats-io/nats.go"
+	"os"
 )
 
 type Client struct {
@@ -9,9 +10,13 @@ type Client struct {
 	*nats.EncodedConn
 }
 
-func NewNATSClient(natsServerURL string) *Client {
+func NewNATSClient() *Client {
+	natsUrl := nats.DefaultURL
+	if env, b := os.LookupEnv("NATS_URL"); b {
+		natsUrl = env
+	}
 	return &Client{
-		ServerURL: natsServerURL,
+		ServerURL: natsUrl,
 	}
 }
 
