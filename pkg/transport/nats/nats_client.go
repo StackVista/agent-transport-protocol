@@ -24,13 +24,17 @@ func (nc *Client) BindSenderSubject(subject string, subjectChan chan interface{}
 }
 
 // Connect connects to the NATS server
-func (nc *Client) Connect() (*nats.EncodedConn, error) {
+func (nc *Client) Connect() (*Client, error) {
 	client, err := nats.Connect(nats.DefaultURL)
 	if err != nil {
 		return nil, err
 	}
 
-	return nats.NewEncodedConn(client, nats.JSON_ENCODER)
+	if nc.EncodedConn, err = nats.NewEncodedConn(client, nats.JSON_ENCODER); err != nil {
+		return nil, err
+	}
+
+	return nc, nil
 }
 
 // Close closes the connection to the NATS server
