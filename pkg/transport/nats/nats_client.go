@@ -9,9 +9,9 @@ type Client struct {
 	*nats.EncodedConn
 }
 
-func NewNATSClient() *Client {
+func NewNATSClient(natsServerURL string) *Client {
 	return &Client{
-		ServerURL: nats.DefaultURL,
+		ServerURL: natsServerURL,
 	}
 }
 
@@ -25,7 +25,7 @@ func (nc *Client) BindSenderSubject(subject string, subjectChan chan interface{}
 
 // Connect connects to the NATS server
 func (nc *Client) Connect() (*Client, error) {
-	client, err := nats.Connect(nats.DefaultURL)
+	client, err := nats.Connect(nc.ServerURL)
 	if err != nil {
 		return nil, err
 	}
