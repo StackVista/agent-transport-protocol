@@ -9,19 +9,10 @@ type Client struct {
 	*nats.EncodedConn
 }
 
-func NewNATSClient() (*Client, error) {
-	cl := &Client{
+func NewNATSClient() *Client {
+	return &Client{
 		ServerURL: nats.DefaultURL,
 	}
-
-	connect, err := cl.Connect()
-	if err != nil {
-		return nil, err
-	}
-
-	cl.EncodedConn = connect
-
-	return cl, nil
 }
 
 func (nc *Client) BindReceiverSubject(subject string, subjectChan interface{}) {
@@ -38,6 +29,7 @@ func (nc *Client) Connect() (*nats.EncodedConn, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return nats.NewEncodedConn(client, nats.JSON_ENCODER)
 }
 
