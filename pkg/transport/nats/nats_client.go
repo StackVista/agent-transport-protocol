@@ -1,7 +1,6 @@
 package nats
 
 import (
-	log "github.com/cihub/seelog"
 	"github.com/nats-io/nats.go"
 )
 
@@ -10,19 +9,19 @@ type Client struct {
 	*nats.EncodedConn
 }
 
-func NewNATSClient() Client {
-	cl := Client{
+func NewNATSClient() (*Client, error) {
+	cl := &Client{
 		ServerURL: nats.DefaultURL,
 	}
 
 	connect, err := cl.Connect()
 	if err != nil {
-		log.Errorf("error connecting to NATS: %s", err)
+		return nil, err
 	}
 
 	cl.EncodedConn = connect
 
-	return cl
+	return cl, nil
 }
 
 func (nc *Client) BindReceiverSubject(subject string, subjectChan interface{}) {
