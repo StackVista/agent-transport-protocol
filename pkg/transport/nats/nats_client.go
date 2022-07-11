@@ -1,8 +1,8 @@
 package nats
 
 import (
-	log "github.com/cihub/seelog"
 	"github.com/nats-io/nats.go"
+	"os"
 )
 
 type Client struct {
@@ -10,19 +10,14 @@ type Client struct {
 	*nats.EncodedConn
 }
 
-func NewNATSClient() Client {
-	cl := Client{
-		ServerURL: nats.DefaultURL,
+func NewNATSClient() *Client {
+	natsUrl := nats.DefaultURL
+	if env, b := os.LookupEnv("NATS_URL"); b {
+		natsUrl = env
 	}
-
-	connect, err := cl.Connect()
-	if err != nil {
-		log.Errorf("error connecting to NATS: %s", err)
+	return &Client{
+		ServerURL: natsUrl,
 	}
-
-	cl.EncodedConn = connect
-
-	return cl
 }
 
 func (nc *Client) BindReceiverSubject(subject string, subjectChan interface{}) {
@@ -34,12 +29,17 @@ func (nc *Client) BindSenderSubject(subject string, subjectChan chan interface{}
 }
 
 // Connect connects to the NATS server
-func (nc *Client) Connect() (*nats.EncodedConn, error) {
-	client, err := nats.Connect(nats.DefaultURL)
+func (nc *Client) Connect() (*Client, error) {
+	client, err := nats.Connect(nc.ServerURL)
 	if err != nil {
 		return nil, err
 	}
-	return nats.NewEncodedConn(client, nats.JSON_ENCODER)
+
+	if nc.EncodedConn, err = nats.NewEncodedConn(client, nats.JSON_ENCODER); err != nil {
+		return nil, err
+	}
+
+	return nc, nil
 }
 
 // Close closes the connection to the NATS server

@@ -1,4 +1,4 @@
-package nats
+package subjects
 
 const (
 	ProcessAgentConnections = "process-agent.connections"
