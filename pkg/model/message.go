@@ -93,8 +93,7 @@ type MessageBody interface {
 	ProtoMessage()
 	Reset()
 	String() string
-	// TODO Size is implemented on pb files from process-agent
-	//Size() int
+	Size() int
 }
 
 // DecodeMessage decodes raw message bytes into a specific type that satisfies
