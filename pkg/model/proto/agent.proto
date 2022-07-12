@@ -6,6 +6,9 @@ package datadog.process_agent;
 
 import "agent_payload.proto";
 import "github.com/DataDog/sketches-go/ddsketch/pb/ddsketch.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.sizer_all) = true;
 
 //
 // Message Types
