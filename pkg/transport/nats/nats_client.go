@@ -2,7 +2,6 @@ package nats
 
 import (
 	"github.com/nats-io/nats.go"
-	"github.com/nats-io/nats.go/encoders/protobuf"
 	"os"
 )
 
@@ -36,7 +35,7 @@ func (nc *Client) Connect() (*Client, error) {
 		return nil, err
 	}
 
-	if nc.EncodedConn, err = nats.NewEncodedConn(client, protobuf.PROTOBUF_ENCODER); err != nil {
+	if nc.EncodedConn, err = nats.NewEncodedConn(client, nats.JSON_ENCODER); err != nil {
 		return nil, err
 	}
 
