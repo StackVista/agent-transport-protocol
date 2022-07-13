@@ -9,6 +9,7 @@ import (
 type Client struct {
 	ServerURL string
 	*nats.EncodedConn
+	*nats.Conn
 }
 
 func NewNATSClient() *Client {
@@ -36,6 +37,7 @@ func (nc *Client) Connect() (*Client, error) {
 		return nil, err
 	}
 
+	nc.Conn = client
 	if nc.EncodedConn, err = nats.NewEncodedConn(client, protobuf.PROTOBUF_ENCODER); err != nil {
 		return nil, err
 	}
